@@ -2,7 +2,9 @@ package com.example.book.service;
 
 import com.example.book.entity.Author;
 import com.example.book.repository.AuthorRepository;
+import com.example.exception_handler.LMSServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +18,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public Author createAuthor(Author author) {
         if (authorRepository.existsByName(author.getName())) {
-            throw new RuntimeException("Author with this name already exists");
+            throw new LMSServiceException(HttpStatus.CONFLICT,"Author with this name already exists");
         }
         return authorRepository.save(author);
     }

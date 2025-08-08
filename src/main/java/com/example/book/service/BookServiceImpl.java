@@ -2,7 +2,9 @@ package com.example.book.service;
 
 import com.example.book.entity.Book;
 import com.example.book.repository.BookRepository;
+import com.example.exception_handler.LMSServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -22,14 +24,15 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public List<Book> getAllBooks() throws InterruptedException {
-        System.out.println("book");
-        Thread.sleep(2000);
         return bookRepository.findAll();
     }
 
     @Override
     public Optional<Book> getBookById(Long id) throws SQLException {
-        return bookRepository.findById(id);
+        return Optional.ofNullable(
+                bookRepository.findById(id)
+                        .orElseThrow(() -> new LMSServiceException(HttpStatus.NOT_FOUND, "Book not found with id: " + id))
+        );
     }
 
     @Override
@@ -45,7 +48,7 @@ public class BookServiceImpl implements BookService{
                     book.setAvailableCopies(updatedBook.getAvailableCopies());
                     return bookRepository.save(book);
                 })
-                .orElseThrow(() -> new RuntimeException("Book not found"));
+                .orElseThrow(() -> new LMSServiceException(HttpStatus.NOT_FOUND,"Book not found"));
     }
 
     @Override
@@ -55,21 +58,22 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public List<Book> searchByTitle(String title) {
-        return bookRepository.findByTitleContainingIgnoreCase(title);
+        return Optional.ofNullable(bookRepository.findByTitleContainingIgnoreCase(title)).orElseThrow(() -> new LMSServiceException(HttpStatus.NOT_FOUND, "Book not found with title: " + title));
+
     }
 
     @Override
     public List<Book> searchByAuthorName(String authorName) {
-        return bookRepository.findByAuthor_NameContainingIgnoreCase(authorName);
+        return Optional.ofNullable(bookRepository.findByAuthor_NameContainingIgnoreCase(authorName)).orElseThrow(() -> new LMSServiceException(HttpStatus.NOT_FOUND, "Book not found with title: " + title));
     }
 
     @Override
     public List<Book> searchByCategoryName(String categoryName) {
-        return bookRepository.findByCategory_NameContainingIgnoreCase(categoryName);
+        return Optional.ofNullable(bookRepository.findByCategory_NameContainingIgnoreCase(categoryName)).orElseThrow(() -> new LMSServiceException(HttpStatus.NOT_FOUND, "Book not found with title: " + title));
     }
 
     @Override
     public Optional<Book> searchByIsbn(String isbn) {
-        return bookRepository.findByIsbn(isbn);
+        return Optional.ofNullable(bookRepository.findByIsbn(isbn)).orElseThrow(() -> new LMSServiceException(HttpStatus.NOT_FOUND, "Book not found with title: " + title));
     }
 }
