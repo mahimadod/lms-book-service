@@ -64,16 +64,16 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public List<Book> searchByAuthorName(String authorName) {
-        return Optional.ofNullable(bookRepository.findByAuthor_NameContainingIgnoreCase(authorName)).orElseThrow(() -> new LMSServiceException(HttpStatus.NOT_FOUND, "Book not found with title: " + title));
+        return Optional.ofNullable(bookRepository.findByAuthor_NameContainingIgnoreCase(authorName)).orElseThrow(() -> new LMSServiceException(HttpStatus.NOT_FOUND, "Book not found with author: " + authorName));
     }
 
     @Override
     public List<Book> searchByCategoryName(String categoryName) {
-        return Optional.ofNullable(bookRepository.findByCategory_NameContainingIgnoreCase(categoryName)).orElseThrow(() -> new LMSServiceException(HttpStatus.NOT_FOUND, "Book not found with title: " + title));
+        return Optional.ofNullable(bookRepository.findByCategory_NameContainingIgnoreCase(categoryName)).orElseThrow(() -> new LMSServiceException(HttpStatus.NOT_FOUND, "Book not found with category: " + categoryName));
     }
 
     @Override
     public Optional<Book> searchByIsbn(String isbn) {
-        return Optional.ofNullable(bookRepository.findByIsbn(isbn)).orElseThrow(() -> new LMSServiceException(HttpStatus.NOT_FOUND, "Book not found with title: " + title));
+        return Optional.ofNullable(bookRepository.findByIsbn(isbn)).orElseThrow(() -> new LMSServiceException(HttpStatus.NOT_FOUND, "Book not found with isbn: " + isbn));
     }
 }
