@@ -5,7 +5,7 @@
 #WORKDIR /app
 #
 ## Copy the JAR file into the container
-#COPY target/book-service-0.0.1-SNAPSHOT.jar app.jar
+#COPY target/authenticator-service-0.0.1-SNAPSHOT.jar app.jar
 #
 ## Expose the Eureka default port
 #EXPOSE 8761
