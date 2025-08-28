@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("book-service/api/authors")
+@RequestMapping("api/authors")
 @CrossOrigin
 public class AuthorController {
 

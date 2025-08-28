@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @RestController
-@RequestMapping("book-service/api/books")
+@RequestMapping("api/books")
 @CrossOrigin
 public class BookController {
 
