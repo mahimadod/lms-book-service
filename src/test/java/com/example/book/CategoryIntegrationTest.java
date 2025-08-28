@@ -39,7 +39,7 @@ class CategoryIntegrationTest {
         category.setName("Fiction");
         String categoryJson = objectMapper.writeValueAsString(category);
 
-        mockMvc.perform(post("/book-service/api/categories")
+        mockMvc.perform(post("/api/categories")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(categoryJson))
             .andExpect(status().isOk())
@@ -52,7 +52,7 @@ class CategoryIntegrationTest {
     void testGetAllCategories() throws Exception {
         categoryRepository.save(Category.builder().name("Science").build());
 
-        mockMvc.perform(get("/book-service/api/categories"))
+        mockMvc.perform(get("/api/categories"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$[0].id", notNullValue()));
     }
