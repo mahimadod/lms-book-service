@@ -45,7 +45,7 @@ public class AuthorIntegrationTest {
         Author author = new Author();
         author.setName("R. K. Narayan");
 
-        mockMvc.perform(post("/book-service/api/authors")
+        mockMvc.perform(post("/api/authors")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(author)))
                 .andExpect(status().isOk())
@@ -58,7 +58,7 @@ public class AuthorIntegrationTest {
     void testGetAllAuthors() throws Exception {
         authorRepository.save(new Author(null, "Chetan Bhagat"));
 
-        mockMvc.perform(get("/book-service/api/authors"))
+        mockMvc.perform(get("/api/authors"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()", is(1)))
                 .andExpect(jsonPath("$[0].name").value("Chetan Bhagat"));

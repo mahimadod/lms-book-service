@@ -52,7 +52,7 @@ public class BookIntegrationTest {
                 .isbn("1234567890")
                 .build();
 
-        mockMvc.perform(post("/book-service/api/books")
+        mockMvc.perform(post("/api/books")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(book)))
                 .andExpect(status().isOk())
@@ -65,7 +65,7 @@ public class BookIntegrationTest {
     void testGetAllBooks() throws Exception {
         bookRepository.save(Book.builder().title("Book1").author(Author.builder().name("Author1").build()).isbn("111").build());
 
-        mockMvc.perform(get("/book-service/api/books"))
+        mockMvc.perform(get("/api/books"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()", is(1)))
                 .andExpect(jsonPath("$[0].title").value("Book1"));
@@ -76,7 +76,7 @@ public class BookIntegrationTest {
     void testGetBookById() throws Exception {
         Book saved = bookRepository.save(Book.builder().title("Book2").author(Author.builder().name("Author2").build()).isbn("222").build());
 
-        mockMvc.perform(get("/book-service/api/books/" + saved.getId()))
+        mockMvc.perform(get("/api/books/" + saved.getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").value("Book2"));
     }
@@ -87,7 +87,7 @@ public class BookIntegrationTest {
         Book saved = bookRepository.save(Book.builder().title("Book3").author(Author.builder().name("Author3").build()).isbn("333").build());
         saved.setTitle("Updated Book");
         saved.setAuthor(null);
-        mockMvc.perform(put("/book-service/api/books/" + saved.getId())
+        mockMvc.perform(put("/api/books/" + saved.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(saved)))
                 .andExpect(status().isOk())
@@ -99,7 +99,7 @@ public class BookIntegrationTest {
     void testDeleteBook() throws Exception {
         Book saved = bookRepository.save(Book.builder().title("Book4").author(Author.builder().name("Author4").build()).isbn("444").build());
 
-        mockMvc.perform(delete("/book-service/api/books/" + saved.getId()))
+        mockMvc.perform(delete("/api/books/" + saved.getId()))
                 .andExpect(status().isNoContent());
 
         Assertions.assertFalse(bookRepository.findById(saved.getId()).isPresent());
