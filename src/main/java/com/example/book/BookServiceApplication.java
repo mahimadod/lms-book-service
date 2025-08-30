@@ -3,6 +3,7 @@ package com.example.book;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 		"com.example.exception_handler",
 		"com.example.authenticator_service"
 })
+@EnableDiscoveryClient
 public class BookServiceApplication {
 
 	public static void main(String[] args) {
