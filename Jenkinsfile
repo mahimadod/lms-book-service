@@ -65,7 +65,7 @@ pipeline {
                 echo 'Deploying Docker container...'
                 sh """
                     docker rm -f lms-book || true
-                    docker run -d --name lms-book -p 8081:8081 ${DOCKER_IMAGE}:${BUILD_NUMBER}
+                    docker run -d --name lms-book --network lms-network -p 8081:8081 ${DOCKER_IMAGE}:${BUILD_NUMBER}
                 """
             }
         }
