@@ -6,6 +6,7 @@ pipeline {
         DOCKER_IMAGE = "mahimadod/lms-book-service"
         JAVA_HOME = tool name: 'JDK21', type: 'jdk'
         MAVEN_HOME = tool name: 'Maven3.9.9', type: 'maven'
+         SONAR_TOKEN = credentials('sonarqube-token')
     }
 
     tools {
@@ -43,6 +44,17 @@ pipeline {
                 always {
                     junit '**/target/surefire-reports/*.xml'
                     archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+                }
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh "mvn sonar:sonar \
+                        -Dsonar.projectKey=lms-book-service \
+                        -Dsonar.host.url=${SONAR_HOST_URL} \
+                        -Dsonar.login=${SONAR_TOKEN}"
                 }
             }
         }
