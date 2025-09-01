@@ -1,5 +1,6 @@
 package com.example.book;
 
+import org.slf4j.MDC;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.ComponentScan;
 public class BookServiceApplication {
 
 	public static void main(String[] args) {
+		MDC.put("service", "book-service");
 		SpringApplication.run(BookServiceApplication.class, args);
 	}
 
