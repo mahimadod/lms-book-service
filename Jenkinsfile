@@ -56,7 +56,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     bat """
-                        mvn sonar:sonar ^
+                        mvn clean verify sonar:sonar ^
                             -Dsonar.projectKey=lms-book-service ^
                             -Dsonar.host.url=%SONAR_HOST_URL% ^
                             -Dsonar.login=%SONAR_TOKEN%
