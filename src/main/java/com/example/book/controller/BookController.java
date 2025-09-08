@@ -26,8 +26,7 @@ public class BookController {
     @GetMapping
     public ResponseEntity<List<Book>> getAllBooks() throws InterruptedException {
         ResponseEntity<List<Book>> x= ResponseEntity.ok(bookService.getAllBooks());
-        MDC.put("userId", "abc123");      // Set dynamic context
-        MDC.put("requestId",x.getBody().getFirst().getTitle());
+        MDC.put("userId", "abc123");
         return x;
     }
 
