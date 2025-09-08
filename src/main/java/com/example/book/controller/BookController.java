@@ -2,6 +2,7 @@ package com.example.book.controller;
 
 import com.example.book.entity.Book;
 import com.example.book.service.BookService;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,10 @@ public class BookController {
 
     @GetMapping
     public ResponseEntity<List<Book>> getAllBooks() throws InterruptedException {
-        return ResponseEntity.ok(bookService.getAllBooks());
+        ResponseEntity<List<Book>> x= ResponseEntity.ok(bookService.getAllBooks());
+        MDC.put("userId", "abc123");      // Set dynamic context
+        MDC.put("requestId",x.getBody().getFirst().getTitle());
+        return x;
     }
 
     @GetMapping("/{id}")

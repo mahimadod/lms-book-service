@@ -12,6 +12,7 @@
                 <stackTrace />
                 <context />
                 <mdc />
+                <customFields>{"service":"book-service"}</customFields>
             </providers>
         </encoder>
     </appender>
