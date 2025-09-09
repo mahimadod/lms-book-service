@@ -3,6 +3,7 @@ package com.example.book.service;
 import com.example.book.entity.Book;
 import com.example.book.repository.BookRepository;
 import com.example.exception_handler.LMSServiceException;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,11 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public List<Book> getAllBooks() throws InterruptedException {
-        return bookRepository.findAll();
+
+        List<Book> x= bookRepository.findAll();
+
+        MDC.put("response", x.get(0).getTitle());
+        return x;
     }
 
     @Override
