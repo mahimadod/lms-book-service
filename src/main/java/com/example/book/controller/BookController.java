@@ -18,6 +18,8 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(BookController.class);
+
     @PostMapping
     public ResponseEntity<Book> createBook(@RequestBody Book book) throws SQLException {
         return ResponseEntity.ok(bookService.createBook(book));
@@ -27,6 +29,7 @@ public class BookController {
     public ResponseEntity<List<Book>> getAllBooks() throws InterruptedException {
         ResponseEntity<List<Book>> x= ResponseEntity.ok(bookService.getAllBooks());
         MDC.put("userId", "abc123");
+        logger.info("Handling request");
         return x;
     }
 
