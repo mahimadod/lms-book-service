@@ -26,9 +26,7 @@ public class BookServiceImpl implements BookService{
     @Override
     public List<Book> getAllBooks() throws InterruptedException {
 
-        List<Book> x= bookRepository.findAll();
-
-        MDC.put("response", x.get(0).getTitle());
+        List<Book> x=   bookRepository.findAll();
         return x;
     }
 
