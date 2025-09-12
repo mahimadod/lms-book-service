@@ -1,8 +1,19 @@
 <configuration>
 
+    <!--
+    Define the Logstash appender
+     Appender tells the Application where to send the logs and in what format
+     Three types
+        - Console Appender: Logs to the console (useful for local development)
+        - File Appender: Logs to a file (useful for persistent storage)
+        - Logstash Appender: Sends logs to a Logstash instance (useful for centralized logging)
+     -->
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>logstash:5000</destination> <!-- Change to your host IP if needed -->
+        <!--The app connects to this destination to send logs to Logstash-->
+        <destination>logstash:5000</destination>
+        <!--Formats each log message as a JSON object-->
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <!-- Providers define what fields are included in the JSON (timestamp, log level, message, etc.) -->
             <providers>
                 <timestamp />
                 <logLevel />
@@ -12,7 +23,6 @@
                 <stackTrace />
                 <context />
                 <mdc />
-                <customFields>{"service":"book-service"}</customFields>
             </providers>
         </encoder>
     </appender>

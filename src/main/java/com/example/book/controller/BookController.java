@@ -27,7 +27,6 @@ public class BookController {
 
     @GetMapping
     public ResponseEntity<List<Book>> getAllBooks() throws InterruptedException {
-        MDC.put("service", "book-service");
         ResponseEntity<List<Book>> x= ResponseEntity.ok(bookService.getAllBooks());
         logger.info("Response generated");
         return x;
