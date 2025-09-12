@@ -9,9 +9,9 @@ pipeline {
          SONAR_TOKEN = credentials('sonarqube-token')
     }
 
-    tools {
+/*     tools {
         maven 'Maven3.9.9'
-    }
+    } */
 
     stages {
         stage('Clean Workspace') {
