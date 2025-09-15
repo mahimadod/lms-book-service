@@ -1,13 +1,10 @@
 <configuration>
-
-    <!--
-    Define the Logstash appender
+    <!-- Define the Logstash appender
      Appender tells the Application where to send the logs and in what format
      Three types
         - Console Appender: Logs to the console (useful for local development)
         - File Appender: Logs to a file (useful for persistent storage)
-        - Logstash Appender: Sends logs to a Logstash instance (useful for centralized logging)
-     -->
+        - Logstash Appender: Sends logs to a Logstash instance (useful for centralized logging) -->
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <!--The app connects to this destination to send logs to Logstash-->
         <destination>logstash:5000</destination>
@@ -26,7 +23,6 @@
             </providers>
         </encoder>
     </appender>
-
     <!-- Console appender only for 'local' profile -->
     <springProfile name="dev">
         <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -41,7 +37,6 @@
             <appender-ref ref="LOGSTASH" />
         </root>
     </springProfile>
-
     <!-- Default root logger for all other profiles -->
     <springProfile name="!local">
         <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -49,7 +44,6 @@
                 <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg %X%n</pattern>
             </encoder>
         </appender>
-
         <root level="INFO">
             <appender-ref ref="LOGSTASH" />
         </root>
